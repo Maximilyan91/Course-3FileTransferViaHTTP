@@ -1,4 +1,4 @@
-package com.cooking.course3_recipebook.controllers;
+package com.cooking.course3_recipeApp.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
