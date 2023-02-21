@@ -2,10 +2,12 @@ package com.cooking.course3_recipeApp.service;
 
 import com.cooking.course3_recipeApp.model.Ingredient;
 
+import java.util.Optional;
+
 public interface IngredientService {
 
-    void addIngredient(Ingredient ingredient);
+    Ingredient addIngredient(Ingredient ingredient);
 
-    void getIngredient(int id);
+    Optional<Ingredient> getIngredient(int id);
 }
 
