@@ -1,4 +1,5 @@
 package com.cooking.course3_recipeApp.service.impl;
+
 import com.cooking.course3_recipeApp.exception.ValidationException;
 import com.cooking.course3_recipeApp.model.Recipe;
 import com.cooking.course3_recipeApp.service.RecipeService;
@@ -13,7 +14,7 @@ import java.util.Optional;
 public class RecipeServiceImpl implements RecipeService {
 
 
-    private static Map<Integer, Recipe> recipes = new HashMap<>();
+    private static final Map<Integer, Recipe> recipes = new HashMap<>();
     private static int id = 0;
     private final ValidationService validationService;
 
@@ -21,17 +22,16 @@ public class RecipeServiceImpl implements RecipeService {
         this.validationService = validationService;
     }
 
-
     @Override
     public Recipe addRecipe(Recipe recipe) {
         if (!validationService.validate(recipe)) {
             throw new ValidationException(recipe.toString());
         }
-       return recipes.put(id++, recipe);
+        return recipes.put(id++, recipe);
     }
 
     @Override
     public Optional<Recipe> getRecipe(int id) {
-       return Optional.empty();
+        return Optional.ofNullable(recipes.get(id));
     }
 }
