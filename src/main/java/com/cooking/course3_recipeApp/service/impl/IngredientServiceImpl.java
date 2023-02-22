@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+
 @Service
 public class IngredientServiceImpl implements IngredientService {
     private static int id = 1;
@@ -28,7 +30,7 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public Ingredient getIngredient(int id) {
-       return ingredients.get(id);
+    public Optional<Ingredient> getIngredient(int id) {
+        return Optional.empty();
     }
 }

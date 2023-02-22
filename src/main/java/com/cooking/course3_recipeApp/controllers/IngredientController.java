@@ -1,7 +1,6 @@
 package com.cooking.course3_recipeApp.controllers;
 
 import com.cooking.course3_recipeApp.model.Ingredient;
-import com.cooking.course3_recipeApp.model.Recipe;
 import com.cooking.course3_recipeApp.service.IngredientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
