@@ -31,6 +31,6 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public Optional<Ingredient> getIngredient(int id) {
-        return Optional.empty();
+        return Optional.ofNullable(ingredients.get(id));
     }
 }
