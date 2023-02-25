@@ -33,4 +33,22 @@ public class IngredientServiceImpl implements IngredientService {
     public Optional<Ingredient> getIngredient(int id) {
         return Optional.ofNullable(ingredients.get(id));
     }
+
+    @Override
+    public Ingredient update(int id, Ingredient ingredient) {
+        if (!validationService.validate(ingredient)) {
+            throw new ValidationException(ingredient.toString());
+        }
+        return ingredients.replace(id, ingredient);
+    }
+
+    @Override
+    public Ingredient delete(int id) {
+        return ingredients.remove(id);
+    }
+
+    @Override
+    public Map<Integer, Ingredient> getAll() {
+        return ingredients;
+    }
 }
