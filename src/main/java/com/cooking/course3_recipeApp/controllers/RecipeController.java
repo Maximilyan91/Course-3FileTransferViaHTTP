@@ -27,17 +27,17 @@ public class RecipeController {
     }
     @Operation(summary = "Получение рецепта по ID")
     @GetMapping("/{id}")
-    public ResponseEntity<Recipe> getById(@PathVariable int id) {
+    public ResponseEntity<Recipe> getById(@PathVariable Long id) {
         return ResponseEntity.of(recipeService.getRecipe(id));
     }
     @Operation(summary = "Обновление рецепта по ID")
     @PutMapping("/{id}")
-    public ResponseEntity<Recipe> update(@PathVariable int id, @RequestBody Recipe recipe) {
+    public ResponseEntity<Recipe> update(@PathVariable Long id, @RequestBody Recipe recipe) {
         return ResponseEntity.ok(recipeService.update(id, recipe));
     }
     @Operation(summary = "Удаление рецепта по ID")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Recipe> delete(@PathVariable int id) {
+    public ResponseEntity<Recipe> delete(@PathVariable Long id) {
         return ResponseEntity.ok(recipeService.delete(id));
     }
     @Operation(summary = "Получение всех рецептов")

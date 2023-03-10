@@ -9,10 +9,10 @@ public interface RecipeService {
 
      Recipe addRecipe(Recipe recipe);
 
-     Optional<Recipe> getRecipe(int id);
+     Optional<Recipe> getRecipe(Long id);
 
-     Recipe update(int id, Recipe recipe);
-     Recipe delete(int id);
+     Recipe update(Long id, Recipe recipe);
+     Recipe delete(Long id);
 
-     Map<Integer, Recipe> getAll();
+     Map<Long, Recipe> getAll();
 }

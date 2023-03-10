@@ -25,17 +25,17 @@ public class  IngredientController {
     }
     @Operation(summary = "Получение ингридиента по ID")
     @GetMapping("/{id}")
-    public ResponseEntity<Ingredient> getById(@PathVariable int id) {
+    public ResponseEntity<Ingredient> getById(@PathVariable Long id) {
         return ResponseEntity.of(ingredientService.getIngredient(id));
     }
     @Operation(summary = "Обновление ингридиента по ID")
     @PutMapping("/{id}")
-    public ResponseEntity<Ingredient> update(@PathVariable int id, @RequestBody Ingredient ingredient) {
+    public ResponseEntity<Ingredient> update(@PathVariable Long id, @RequestBody Ingredient ingredient) {
         return ResponseEntity.ok(ingredientService.update(id, ingredient));
     }
     @Operation(summary = "Удаление ингридиента по ID")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Ingredient> delete(@PathVariable int id) {
+    public ResponseEntity<Ingredient> delete(@PathVariable Long id) {
         return ResponseEntity.ok(ingredientService.delete(id));
     }
     @Operation(summary = "Получение всех ингридиентов")

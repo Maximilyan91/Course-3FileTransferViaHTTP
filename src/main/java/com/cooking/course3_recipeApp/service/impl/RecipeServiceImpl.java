@@ -2,57 +2,83 @@ package com.cooking.course3_recipeApp.service.impl;
 
 import com.cooking.course3_recipeApp.exception.ValidationException;
 import com.cooking.course3_recipeApp.model.Recipe;
+import com.cooking.course3_recipeApp.service.FileService;
 import com.cooking.course3_recipeApp.service.RecipeService;
 import com.cooking.course3_recipeApp.service.ValidationService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class RecipeServiceImpl implements RecipeService {
 
 
-    private static final Map<Integer, Recipe> recipes = new HashMap<>();
-    private static int id = 0;
+    private Map<Long, Recipe> recipes = new HashMap<>();
+    private static Long id = 0L;
     private final ValidationService validationService;
+    private final FileService fileService;
 
-    public RecipeServiceImpl(ValidationService validationService) {
-        this.validationService = validationService;
-    }
+    @Value("${path.to.recipes.file}")
+    private String recipesFilePath;
+
+    @Value("${path.to.recipes.file}")
+    private String recipesFileName;
+
+    private Path recipesPath;
+
 
     @Override
     public Recipe addRecipe(Recipe recipe) {
         if (!validationService.validate(recipe)) {
             throw new ValidationException(recipe.toString());
         }
-        return recipes.put(id++, recipe);
+        Recipe addedRecipe = recipes.put(id++, recipe);
+        fileService.saveToFile(recipes, recipesPath);
+        return addedRecipe;
+
     }
 
     @Override
-    public Optional<Recipe> getRecipe(int id) {
+    public Optional<Recipe> getRecipe(Long id) {
         return Optional.ofNullable(recipes.get(id));
     }
 
     @Override
-    public Recipe update(int id, Recipe recipe) {
+    public Recipe update(Long id, Recipe recipe) {
         if (!validationService.validate(recipe)) {
             throw new ValidationException(recipe.toString());
         }
-        return recipes.replace(id, recipe);
+        Recipe updated = recipes.replace(id, recipe);
+        fileService.saveToFile(recipes, recipesPath);
+        return updated;
     }
 
 
     @Override
-    public Recipe delete(int id) {
+    public Recipe delete(Long id) {
         return recipes.remove(id);
     }
 
     @Override
-    public Map<Integer, Recipe> getAll() {
+    public Map<Long, Recipe> getAll() {
         return recipes;
     }
+    @PostConstruct
+    private void init() {
+        recipesPath = Path.of(recipesFilePath, recipesFileName);
+        recipes = fileService.readMapFromFile(recipesPath, new TypeReference<HashMap<Long, Recipe>>() {});
+
+    }
+
+
 
 
 }

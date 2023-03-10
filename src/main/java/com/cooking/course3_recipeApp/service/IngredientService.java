@@ -9,11 +9,13 @@ public interface IngredientService {
 
     Ingredient addIngredient(Ingredient ingredient);
 
-    Optional<Ingredient> getIngredient(int id);
+    Optional<Ingredient> getIngredient(Long id);
 
-    Ingredient update(int id, Ingredient ingredient);
-    Ingredient delete(int id);
+    Ingredient update(Long id, Ingredient ingredient);
 
-    Map<Integer, Ingredient> getAll();
+
+    Ingredient delete(Long id);
+
+    Map<Long, Ingredient> getAll();
 }
 
